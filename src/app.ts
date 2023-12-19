@@ -1,17 +1,19 @@
-import express, { Request, Response } from "express";
+import express, { Application } from "express";
 import "dotenv/config";
 import "reflect-metadata";
 import helmet from "helmet";
 import cors from "cors";
 import logger from "./core/logger";
 import dataSource from "../db/db.config";
+import morgan from "morgan";
 
-const app = express();
+const app: Application = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(cors());
+app.use(morgan("tiny"));
 
 dataSource
   .initialize()
