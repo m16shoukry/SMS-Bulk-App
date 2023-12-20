@@ -4,16 +4,20 @@ import "reflect-metadata";
 import helmet from "helmet";
 import cors from "cors";
 import logger from "./core/logger";
-import dataSource from "../db/db.config";
 import morgan from "morgan";
+import bodyParser from "body-parser";
+import dataSource from "./db/db.config";
+import { authRouter } from "./routes/authRoutes";
 
 const app: Application = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(cors());
 app.use(morgan("tiny"));
+
+app.use("/auth", authRouter);
 
 dataSource
   .initialize()
