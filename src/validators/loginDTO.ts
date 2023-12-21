@@ -4,7 +4,7 @@ import { ErrorApiResponse } from "../core/api-response/Error-api-response.dto";
 
 const data = Joi.object({
   phone: Joi.string()
-    .pattern(/^(?:\+?20\s?)?(1[0-9]{10})$/) // accept EGP phone Only
+    .pattern(/^(?:\+?20\s?)?(01[0-9]{9})$/) // accept EGP phone Only
     .required(),
   password: Joi.string().min(8).required(),
 });
