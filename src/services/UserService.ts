@@ -1,12 +1,15 @@
-import { UserRepository } from "../repositories/userRepository";
+import UserRepository from "src/repositories/userRepository";
 import { User } from "../entities/User";
 import { IUserServices } from "../interfaces/IUserService";
 
 export class UsersServices implements IUserServices {
+  private userRepository: UserRepository;
 
-  constructor() {}
-  
+  constructor(userRepository: UserRepository) {
+    this.userRepository = userRepository;
+  }
+
   async getByPhone(phone: string): Promise<User | undefined> {
-    return await UserRepository.findByPhone(phone);
+    return await  this.userRepository.findByPhone(phone);
   }
 }
