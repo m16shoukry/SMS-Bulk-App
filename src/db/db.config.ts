@@ -13,8 +13,8 @@ export const dataSourceOptions: DataSourceOptions = {
   database: process.env.DB_NAME,
   entities: ["src/entities/**/*.ts"],
   migrations: ["src/db/migrations/*.ts"],
-  synchronize: false,
-  logging: false,
+  synchronize: true,
+  logging: true,
 };
 
 const dataSource = new DataSource(dataSourceOptions);

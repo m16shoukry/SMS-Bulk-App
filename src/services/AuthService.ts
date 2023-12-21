@@ -33,6 +33,7 @@ export class AuthServices implements IAuthService {
     candidatePassword: string,
     hashedPassword: string
   ): Promise<boolean> {
+    //TODO: use bycrypt instead
     return candidatePassword === hashedPassword;
   }
 }

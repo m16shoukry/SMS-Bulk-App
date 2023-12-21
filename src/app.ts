@@ -1,5 +1,6 @@
 import express, { Application } from "express";
-import "dotenv/config";
+import * as dotenv from "dotenv";
+dotenv.config();
 import "reflect-metadata";
 import helmet from "helmet";
 import cors from "cors";
