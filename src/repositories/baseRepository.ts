@@ -1,4 +1,9 @@
-import { FindOptionsWhere, Repository } from "typeorm";
+import {
+  DeepPartial,
+  FindManyOptions,
+  FindOptionsWhere,
+  Repository,
+} from "typeorm";
 
 export abstract class BaseRepository<T> {
   protected entity: Repository<T>;
@@ -7,17 +12,29 @@ export abstract class BaseRepository<T> {
     this.entity = entity;
   }
 
-  async findById(id: number): Promise<T | null> {
-    return await this.entity.findOne({
-      where: { id } as unknown as FindOptionsWhere<T>,
-    });
+  async create(attributes: DeepPartial<T>): Promise<T> {
+    const newEntity = this.entity.create(attributes);
+    return this.save(newEntity);
   }
 
-  async findAll(): Promise<Array<T>> {
-    return await this.entity.find();
+  async save(object: T): Promise<T> {
+    return await this.entity.save(object);
   }
 
-  async delete(id: number) {
+  async findOneBy(conditions: FindOptionsWhere<T>): Promise<T | null> {
+    return await this.entity.findOne({ where: conditions });
+  }
+
+  async findAll(options?: FindManyOptions<T>): Promise<T[]> {
+    return await this.entity.find(options);
+  }
+
+  async update(id: number, attributes: any): Promise<T | null> {
+    await this.entity.update(id, attributes);
+    return this.findOneBy({ id } as unknown as FindOptionsWhere<T>);
+  }
+
+  async delete(id: number): Promise<void> {
     await this.entity.delete(id);
   }
 }

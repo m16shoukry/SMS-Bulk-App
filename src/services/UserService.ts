@@ -1,4 +1,4 @@
-import UserRepository from "src/repositories/userRepository";
+import UserRepository from "../repositories/userRepository";
 import { User } from "../entities/User";
 import { IUserServices } from "../interfaces/IUserService";
 
@@ -10,6 +10,6 @@ export class UsersServices implements IUserServices {
   }
 
   async getByPhone(phone: string): Promise<User | undefined> {
-    return await  this.userRepository.findByPhone(phone);
+    return await this.userRepository.findOneBy({ phone });
   }
 }

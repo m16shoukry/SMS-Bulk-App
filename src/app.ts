@@ -9,6 +9,7 @@ import morgan from "morgan";
 import bodyParser from "body-parser";
 import dataSource from "./db/db.config";
 import { authRouter } from "./routes/authRoutes";
+import { campaignRouter } from "./routes/campaignRoutes";
 
 const app: Application = express();
 
@@ -19,6 +20,7 @@ app.use(cors());
 app.use(morgan("tiny"));
 
 app.use("/auth", authRouter);
+app.use("/campaign", campaignRouter);
 
 dataSource
   .initialize()

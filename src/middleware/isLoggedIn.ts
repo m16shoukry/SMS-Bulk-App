@@ -16,9 +16,8 @@ export default class AuthMiddleware {
     if (token) {
       jwt.verify(token, process.env.JWT_KEY, async (err, decoded) => {
         if (decoded) {
-          console.log('decoded',decoded);
-          const user = await this.userRepository.findById(decoded["id"]);
-          console.log('user',user);
+          const user = await this.userRepository.findOneBy(decoded["id"]);
+
           req["user"] = user;
           next();
         } else {
