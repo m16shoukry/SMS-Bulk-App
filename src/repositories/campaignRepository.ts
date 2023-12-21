@@ -10,9 +10,7 @@ export default class CampaignRepository extends BaseRepository<Campaign> {
   async findOneByCampaignName(
     campaignName: string
   ): Promise<Campaign | undefined> {
-    return await dataSource
-      .getRepository(Campaign)
-      .findOne({ where: { campaignName } });
+    return await this.entity.findOne({ where: { campaignName } });
   }
 
   async findAllByUserId(userId: number): Promise<Campaign[] | undefined> {
