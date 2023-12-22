@@ -24,16 +24,17 @@ export class SubscriptionServices implements ISubscriptionService {
       messagesCount;
 
     if (!isEnoughToSend) {
-      if (activeSubscriptions.length > 1 && activeSubscriptions !== null) {
+      if (activeSubscriptions.length > 1) {
         for (let subscription of activeSubscriptions) {
           if (
             Number(subscription.numSMS) - Number(subscription.sentSMSsNum) >
             messagesCount
           ) {
-            // add messagesCount to this sub 
-            await this.subscriptionRepository.update(subscription.id, {
-              sentSMSsNum: subscription.sentSMSsNum + messagesCount,
-            });
+            // add messagesCount to this sub
+            await this.updateSentSMSsNum(
+              subscription.id,
+              subscription.sentSMSsNum + messagesCount
+            );
             return true;
           } else {
             throw new ErrorApiResponse("please charge your subscription");
@@ -43,11 +44,16 @@ export class SubscriptionServices implements ISubscriptionService {
         throw new ErrorApiResponse("please charge your subscription");
       }
     }
-//TODO: bug here
-    // add messagesCount to this sub
-    await this.subscriptionRepository.update(firstSubscription.id, {
-      sentSMSsNum: firstSubscription.sentSMSsNum + messagesCount,
-    });
+    await this.updateSentSMSsNum(
+      firstSubscription.id,
+      Number(firstSubscription.sentSMSsNum) + Number(messagesCount)
+    );
     return true;
+  }
+
+  async updateSentSMSsNum(subId: number, countSentSMS: number) {
+    await this.subscriptionRepository.update(subId, {
+      sentSMSsNum: countSentSMS,
+    });
   }
 }

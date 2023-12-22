@@ -1,0 +1,322 @@
+{
+	"info": {
+		"_postman_id": "2a918401-9909-470e-b33e-fd2896a0de87",
+		"name": "SMS-Bulk",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9498386"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjAxMTE3ODQ5NzI0IiwiaWQiOiIyIiwiaWF0IjoxNzAzMTc0NTk0LCJleHAiOjE3MDMxOTYxOTR9.GmJU92IjXOaQMUjz5RVropyT940MoWTPUPXeAeiAasI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"phone\":\"01117849724\",\r\n\"password\":\"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"phone\":\"01117849724\",\r\n\"password\":\"12345678\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "207"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"cf-ufDdPvF4TS0s0Auw1PHHZ9USmLU\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 20 Dec 2023 22:46:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"isSuccess\": true,\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjAxMTE3ODQ5NzI0IiwiaWQiOiIyIiwiaWF0IjoxNzAzMTEyMzY1LCJleHAiOjE3MDMxMzM5NjV9.8hCDLXbuoZV5ubjAX06sgiMwPTRhh9NE_kywKezO_TQ\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Campaign",
+			"item": [
+				{
+					"name": "createCampaign",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjAxMTE3ODQ5NzI0IiwiaWQiOiIyIiwiaWF0IjoxNzAzMjcyMTcxLCJleHAiOjE3MDMyOTM3NzF9.BHwWGRRlOQ2cJOJ7bCMRh355d8Y80Co7v4rZM97bXHY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"campaignName\":\"welcome!\",\r\n    \"senderName\":\"chico\",\r\n    \"message\":\"this is the third whith another sender name for same user testing API. Hope All Is Well and Fine\",\r\n    \"phoneNumbers\":[\"01237465826\",\"01117863547\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/campaign/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"campaign",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "createCampaign",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"campaignName\":\"welcome!\",\r\n    \"senderName\":\"chico\",\r\n    \"message\":\"this is the third whith another sender name for same user testing API. Hope All Is Well and Fine\",\r\n    \"phoneNumbers\":[\"01237465826\",\"01117863547\"]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/campaign/create",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"campaign",
+										"create"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "593"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"251-BH9HtItgDRvmrrgQdx4WXkKf3uU\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 22 Dec 2023 19:13:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"isSuccess\": true,\n    \"data\": {\n        \"id\": \"4\",\n        \"campaignName\": \"welcome!\",\n        \"senderName\": \"chico\",\n        \"userId\": \"2\",\n        \"createdAt\": \"2023-12-22T19:13:45.813Z\",\n        \"updatedAt\": \"2023-12-22T19:13:45.813Z\",\n        \"messages\": [\n            {\n                \"id\": \"4\",\n                \"text\": \"this is the third whith another sender name for same user testing API. Hope All Is Well and Fine\",\n                \"campaignId\": \"4\",\n                \"updatedAt\": \"2023-12-22T19:13:45.857Z\"\n            }\n        ],\n        \"contacts\": [\n            {\n                \"id\": \"5\",\n                \"phoneNumber\": \"01237465826\",\n                \"campaignId\": \"4\",\n                \"updatedAt\": \"2023-12-22T19:13:45.903Z\"\n            },\n            {\n                \"id\": \"6\",\n                \"phoneNumber\": \"01117863547\",\n                \"campaignId\": \"4\",\n                \"updatedAt\": \"2023-12-22T19:13:45.943Z\"\n            }\n        ]\n    },\n    \"message\": \"Campaign Created!\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

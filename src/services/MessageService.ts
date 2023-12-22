@@ -15,17 +15,17 @@ export class MessageServices implements IMessageServices {
       const messages: string[] = [];
 
       if (this.isEnglish(message)) {
-        while (message.length > maxLengthEnglish) {
+        while (message.length > maxLengthEnglish && message.length > 0) {
           // split message into 150 chars
-          messages.push(message.substring(0, 150));
-          message = message.substring(150);
+          messages.push(message.slice(0, 153));
+          message = message.slice(153);
         }
 
         messages.push(message);
       } else if (this.isArabic(message)) {
-        while (message.length > maxLengthArabic) {
-          messages.push(message.substring(0, maxLengthArabic));
-          message = message.substring(maxLengthArabic);
+        while (message.length > maxLengthArabic && message.length > 0) {
+          messages.push(message.slice(0, maxLengthArabic));
+          message = message.slice(maxLengthArabic);
         }
 
         messages.push(message);
