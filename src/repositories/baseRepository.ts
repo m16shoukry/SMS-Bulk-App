@@ -33,7 +33,7 @@ export abstract class BaseRepository<T> {
   }
 
   async update(id: number, attributes: any): Promise<T | null> {
-    await this.entity.update(id, attributes);
+    const entity = await this.entity.update(id, attributes);
     return this.findOneBy({ id } as unknown as FindOptionsWhere<T>);
   }
 

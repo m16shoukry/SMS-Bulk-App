@@ -30,14 +30,10 @@ export class CampaignServices implements ICampaignService {
       // count messages created
       const messagesCount = messages.length;
 
-      const validate = await this.subscriptionServices.validateUserSubscription(
+      await this.subscriptionServices.validateUserSubscriptions(
         userId,
         messagesCount
       );
-
-      if (!validate) {
-        throw new ErrorApiResponse("have no enough qouta to sent all messages");
-      }
 
       const newCampaign = await this.campaignRepository.create({
         campaignName,

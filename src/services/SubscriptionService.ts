@@ -1,3 +1,4 @@
+import { Subscription } from "../entities/Subscription";
 import { ErrorApiResponse } from "../core/api-response/Error-api-response.dto";
 import { ISubscriptionService } from "../interfaces/ISubscriptionService";
 import SubscriptionRepository from "../repositories/subscriptionRepository";
@@ -7,10 +8,10 @@ export class SubscriptionServices implements ISubscriptionService {
     this.subscriptionRepository = subscriptionRepository;
   }
 
-  async validateUserSubscription(
+  async validateUserSubscriptions(
     userId: number,
     messagesCount: number
-  ): Promise<boolean> {
+  ): Promise<any> {
     const activeSubscriptions =
       await this.subscriptionRepository.findUserActiveSubscriptions(userId);
 
@@ -18,42 +19,55 @@ export class SubscriptionServices implements ISubscriptionService {
       throw new ErrorApiResponse("please create subscription");
     }
 
-    const firstSubscription = activeSubscriptions[0];
-    const isEnoughToSend =
-      Number(firstSubscription.numSMS) - Number(firstSubscription.sentSMSsNum) >
-      messagesCount;
+    const totalSentSMSsNum = activeSubscriptions.reduce(
+      (total, subscription) => total + subscription.sentSMSsNum,
+      0
+    );
+    const totalNumSMS = activeSubscriptions.reduce(
+      (total, subscription) => total + subscription.numSMS,
+      0
+    );
 
-    if (!isEnoughToSend) {
-      if (activeSubscriptions.length > 1) {
-        for (let subscription of activeSubscriptions) {
-          if (
-            Number(subscription.numSMS) - Number(subscription.sentSMSsNum) >
-            messagesCount
-          ) {
-            // add messagesCount to this sub
-            await this.updateSentSMSsNum(
-              subscription.id,
-              subscription.sentSMSsNum + messagesCount
-            );
-            return true;
-          } else {
-            throw new ErrorApiResponse("please charge your subscription");
-          }
-        }
-      } else {
-        throw new ErrorApiResponse("please charge your subscription");
+    if (totalSentSMSsNum >= totalNumSMS) {
+      throw new ErrorApiResponse("please create subscription");
+    }
+
+    let allMessages = messagesCount;
+
+    for (let subscription of activeSubscriptions) {
+      const deductNum =
+        allMessages >= subscription.numSMS - subscription.sentSMSsNum
+          ? subscription.numSMS - subscription.sentSMSsNum
+          : allMessages;
+
+      await this.deductQuota(subscription, deductNum);
+      allMessages = allMessages - deductNum;
+
+      if (deductNum === 0) {
+        break;
       }
     }
-    await this.updateSentSMSsNum(
-      firstSubscription.id,
-      Number(firstSubscription.sentSMSsNum) + Number(messagesCount)
-    );
-    return true;
+  }
+
+  async deductQuota(
+    subscription: Subscription,
+    messagesCount: number
+  ): Promise<void> {
+    try {
+      const updatedSentSMSsNum = subscription.sentSMSsNum + messagesCount;
+      await this.updateSentSMSsNum(subscription.id, updatedSentSMSsNum);
+    } catch (error: any) {
+      throw new ErrorApiResponse(error.message);
+    }
   }
 
   async updateSentSMSsNum(subId: number, countSentSMS: number) {
-    await this.subscriptionRepository.update(subId, {
-      sentSMSsNum: countSentSMS,
-    });
+    try {
+      await this.subscriptionRepository.update(subId, {
+        sentSMSsNum: countSentSMS,
+      });
+    } catch (error: any) {
+      throw new ErrorApiResponse(error.message);
+    }
   }
 }

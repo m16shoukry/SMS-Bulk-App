@@ -1,7 +1,6 @@
+import { Subscription } from "../entities/Subscription";
+
 export interface ISubscriptionService {
-  validateUserSubscription(
-    userId: number,
-    messagesCount: number
-  ): Promise<boolean>;
-  updateSentSMSsNum(subId: number, countSentSMS: number): Promise<any>;
+  validateUserSubscriptions(userId: number, messagesCount: number): Promise<any>;
+  deductQuota(subscription: Subscription, messagesCount: number): Promise<void>;
 }
