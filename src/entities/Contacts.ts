@@ -23,6 +23,6 @@ export class Contacts {
   @ManyToOne(() => Campaign, (campaign) => campaign.contacts)
   campaign: Campaign;
 
-  @UpdateDateColumn({ type: "datetime", onUpdate: 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn({ type: "datetime", onUpdate: 'GETDATE()' })
   updatedAt: Date;
 }

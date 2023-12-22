@@ -2,10 +2,8 @@ import UserRepository from "../repositories/userRepository";
 import { User } from "../entities/User";
 import { IUserServices } from "../interfaces/IUserService";
 
-export class UsersServices implements IUserServices {
-  private userRepository: UserRepository;
-
-  constructor(userRepository: UserRepository) {
+export class UserServices implements IUserServices {
+  constructor(private userRepository: UserRepository) {
     this.userRepository = userRepository;
   }
 

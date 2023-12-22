@@ -30,10 +30,10 @@ export class User {
   @Column()
   role: string;
 
-  @CreateDateColumn({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn({ type: 'datetime', default: () => 'GETDATE()' })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'datetime', onUpdate: 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn({ type: 'datetime', onUpdate: 'GETDATE()' })
   updatedAt: Date;
 
   @OneToMany(() => Campaign, (campaign) => campaign.user, { eager: true })

@@ -4,9 +4,7 @@ import "dotenv/config";
 import UserRepository from "../repositories/userRepository";
 
 export default class AuthMiddleware {
-  private userRepository: UserRepository;
-
-  constructor(userRepository: UserRepository) {
+  constructor(private userRepository: UserRepository) {
     this.userRepository = userRepository;
   }
 
@@ -16,7 +14,9 @@ export default class AuthMiddleware {
     if (token) {
       jwt.verify(token, process.env.JWT_KEY, async (err, decoded) => {
         if (decoded) {
-          const user = await this.userRepository.findOneBy(decoded["id"]);
+          const user = await this.userRepository.findOneBy({
+            id: decoded["id"],
+          });
 
           req["user"] = user;
           next();

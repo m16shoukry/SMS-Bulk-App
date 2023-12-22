@@ -4,6 +4,8 @@ import {
   Column,
   JoinColumn,
   ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { User } from "./User";
 
@@ -33,4 +35,10 @@ export class Subscription {
   @JoinColumn({ name: "userId", referencedColumnName: "id" })
   @ManyToOne(() => User, (user) => user.subscriptions)
   user: User;
+
+  @CreateDateColumn({ type: "datetime", default: () => "GETDATE()" })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: "datetime", onUpdate: 'GETDATE()'})
+  updatedAt: Date;
 }

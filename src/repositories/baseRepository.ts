@@ -13,8 +13,7 @@ export abstract class BaseRepository<T> {
   }
 
   async create(attributes: DeepPartial<T>): Promise<T> {
-    const newEntity = this.entity.create(attributes);
-    return this.save(newEntity);
+    return await this.entity.create(attributes);
   }
 
   async save(object: T): Promise<T> {
@@ -25,7 +24,11 @@ export abstract class BaseRepository<T> {
     return await this.entity.findOne({ where: conditions });
   }
 
-  async findAll(options?: FindManyOptions<T>): Promise<T[]> {
+  async list(options?: FindManyOptions<T>): Promise<T[]> {
+    return await this.entity.find(options);
+  }
+
+  async findAllBy(options?: FindOptionsWhere<T>): Promise<T[]> {
     return await this.entity.find(options);
   }
 

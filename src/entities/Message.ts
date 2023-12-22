@@ -13,7 +13,7 @@ export class Message {
   @PrimaryGeneratedColumn({ type: "bigint" })
   id: number;
 
-  @Column({ type: "nvarchar", length: 150 })
+  @Column({ type: "nvarchar" })
   text: string;
 
   @Column()
@@ -23,6 +23,6 @@ export class Message {
   @ManyToOne(() => Campaign, (campaign) => campaign.messages)
   campaign: Campaign;
 
-  @UpdateDateColumn({ type: "datetime", onUpdate: 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn({ type: "datetime", onUpdate: "GETDATE()" })
   updatedAt: Date;
 }
