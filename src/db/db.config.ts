@@ -11,10 +11,10 @@ export const dataSourceOptions: DataSourceOptions = {
   password: process.env.DB_PASSWORD,
   extra: { validateConnection: false, trustServerCertificate: true },
   database: process.env.DB_NAME,
-  entities: ["src/entities/**/*.ts"],
-  migrations: ["src/db/migrations/*.ts"],
-  synchronize: true,
-  logging: true,
+  entities: ["dist/src/entities/*{.ts,.js}"],
+  migrations: ["dist/src/db/migrations/*{.ts,.js}"],
+  synchronize: false,
+  logging: false,
 };
 
 const dataSource = new DataSource(dataSourceOptions);
