@@ -10,7 +10,8 @@ export class SubscriptionServices implements ISubscriptionService {
 
   async validateUserSubscriptions(
     userId: number,
-    messagesCount: number
+    messagesCount: number,
+    contactsNums:number
   ): Promise<any> {
     const activeSubscriptions =
       await this.subscriptionRepository.findUserActiveSubscriptions(userId);
@@ -28,11 +29,12 @@ export class SubscriptionServices implements ISubscriptionService {
       0
     );
 
-    if (totalSentSMSsNum >= totalNumSMS) {
-      throw new ErrorApiResponse("please create subscription");
-    }
+    let allMessages = messagesCount *contactsNums;
+    
 
-    let allMessages = messagesCount;
+    if (allMessages > totalNumSMS - totalSentSMSsNum) {
+      throw new ErrorApiResponse("not enough qouta to send all messages");
+    }
 
     for (let subscription of activeSubscriptions) {
       const deductNum =

@@ -29,10 +29,11 @@ export class CampaignServices implements ICampaignService {
       );
       // count messages created
       const messagesCount = messages.length;
-
+      const contacts = phoneNumbers.length;
       await this.subscriptionServices.validateUserSubscriptions(
         userId,
-        messagesCount
+        messagesCount,
+        contacts
       );
 
       const newCampaign = await this.campaignRepository.create({

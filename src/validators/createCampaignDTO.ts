@@ -9,7 +9,7 @@ const data = Joi.object({
   message: Joi.string().required(),
   phoneNumbers: Joi.array()
     .items(Joi.string().pattern(/^(?:\+?20\s?)?(01[0-9]{9})$/))
-    .min(1)
+    .min(1).unique()
     .required(),
 });
 
